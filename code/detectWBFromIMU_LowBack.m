@@ -11,7 +11,9 @@ function WBs = detectWBFromIMU_LowBack(acc, fs, varargin)
     % Optional parameters
     %     visualize : bool, default is False
     %         Whether to plot the preprocessed signals, or not.
-    %
+    % 
+    % References
+    %     Paraschiv-Ionescu et al. J NeuroEngineering Rehabil 16, 24 (2019). https://doi.org/10.1186/s12984-019-0494-z
     
     for i = 1:2:length(varargin)
         if strcmpi(varargin{i}, 'visualize')
