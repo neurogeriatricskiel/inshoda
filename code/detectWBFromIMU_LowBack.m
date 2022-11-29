@@ -28,7 +28,13 @@ function WBs = detectWBFromIMU_LowBack(acc, fs, varargin)
     WBs = struct();
 
     %% Identify the vertical axis
-    [~, idx_vert] = max(mean(abs(acc(8*60*60*fs:20*60*60*fs,:)),1));
+    % Estimate the vertical axis from the average acceleration for the time
+    % points between 8:00 and 20:00
+    ts = initial_timestamp + seconds((0:size(acc,1)-1)'/fs);
+    idx_from = find(hour(ts)>7,1,"first");
+    idx_to = find(hour(ts)<21,1,"last");
+    [~, idx_vert] = max(mean(abs(acc(idx_from:idx_to,:)),1));
+    clearvars idx_from idx_to;
 
     %% Compute acceleration norm
     acc_N = sqrt(dot(acc, acc, 2));
